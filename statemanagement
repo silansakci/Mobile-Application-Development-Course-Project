@@ -1,0 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class RecipeProvider with ChangeNotifier {
+  List<Recipe> _recipes = [];
+  bool _isLoading = false;
+
+  List<Recipe> get recipes => _recipes;
+  bool get isLoading => _isLoading;
+
+  Future<void> loadRecipes() async {
+    _isLoading = true;
+    notifyListeners();
+    _recipes = await fetchRecipes();
+    _isLoading = false;
+    notifyListeners();
+  }
+}
